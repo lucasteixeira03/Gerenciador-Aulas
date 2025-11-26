@@ -1,0 +1,5 @@
+# Ignorar pycache
+__pycache__/
+*.pyc
+.env
+.venv/
