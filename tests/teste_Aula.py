@@ -14,12 +14,12 @@ instrutor = Instrutor("Vanessa Machado", "vanessa.pf@ifsul.com", "CREF12345")
 aula1 = Aula("Personal Solo", "Aula de treinamento personalizado", instrutor)
 
 print("-> Aula  1 (com instrutor):")
-print(aula1)
+print(aula1.exibir_dados())
 
 aula2 = Aula ("Funcional em Grupo", None, None)
 
 print("\n-> Aula 2 (sem descrição e sem instrutor):")
-print(aula2)
+print(aula2.exibir_dados())
 
 # Testando setters
 aula2.titulo = "   musculação pesada   "
@@ -29,7 +29,7 @@ instrutor = Instrutor("Gabriel Tanabe", "gabriel.tanabe@ifsul.com", "CREF67890")
 aula2.instrutor = instrutor
 
 print("\n-> Aula 2 após atualizar dados:")
-print(aula2)
+print(aula2.exibir_dados())
 
 print("\n-> Teste de erro ao passar um instrutor inválido:")
 try:

@@ -8,32 +8,37 @@ class Aula:
 
     @property
     def titulo(self):
-        return self._titulo
+        return self.__titulo
     
     @titulo.setter
     def titulo(self, titulo):
-        self._titulo = titulo.strip().title()
+        self.__titulo = titulo.strip().title()
 
     @property
     def descricao(self):
-        return self._descricao
+        return self.__descricao
 
     @descricao.setter
     def descricao(self, descricao):
-        self._descricao = descricao.strip() if descricao else None
+        self.__descricao = descricao.strip() if descricao else None
 
     @property
     def instrutor(self):
-        return self._instrutor
+        return self.__instrutor
     
     @instrutor.setter
     def instrutor(self, instrutor):
         if instrutor is not None and not isinstance(instrutor, Instrutor):
             raise TypeError("Instrutor deve ser um objeto da classe Instrutor.")
         else:
-            self._instrutor = instrutor
+            self.__instrutor = instrutor
 
     def __str__(self):
         descricao = f"Descrição: {self.descricao}\n" if self.descricao else ""
-        instrutor_nome = self._instrutor.nome if self._instrutor else "Nenhum"
-        return f"Aula: {self.titulo}\n{descricao}Instrutor: {instrutor_nome}"
+        instrutor_nome = self.__instrutor.nome if self.__instrutor else "Nenhum"
+        return f"Aula: {self.__titulo}\n{descricao}Instrutor(a): {instrutor_nome}"
+
+    def exibir_dados(self):
+        descricao = f"Descrição: {self.descricao}\n" if self.descricao else ""
+        instrutor_info = self.instrutor.exibir_dados() if self.instrutor else "Instrutor(a): Nenhum"
+        return f"Aula: {self.titulo}\n{descricao}{instrutor_info}"

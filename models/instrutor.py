@@ -7,14 +7,14 @@ class Instrutor(Pessoa):
 
     @property
     def cref(self):
-        return self._cref
+        return self.__cref
     
     @cref.setter
     def cref(self, cref):
-        self._cref = cref.strip()
+        self.__cref = cref.strip()
 
     def __str__(self):
-        return f"{super().__str__()}, CREF: {self.cref}"
+        return f"{super().__str__()}CREF: {self.__cref}"
 
     def exibir_dados(self):
-        return f"Instrutor: {self.nome}, Email: {self.email}, CREF: {self.cref}"
+        return f"Instrutor(a): {self.nome}\nEmail: {self.email}\nCREF: {self.cref}"

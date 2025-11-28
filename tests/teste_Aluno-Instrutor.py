@@ -11,11 +11,14 @@ from models.instrutor import Instrutor
 
 print("=== TESTE DE ALUNO E INSTRUTOR ===\n")
 
-aluno = Aluno("  Lucas Teixeira  ", "  lucasteixeira.pf@ifsul.com  ", "  A123  ")
+aluno = Aluno("  Lucas Teixeira  ", "  lucasteixeira.pf@ifsul.com  ", "  0102025  ")
 instrutor = Instrutor("  Vanessa Machado  ", "  vanessa.pf@ifsul.com  ", "  CREF12345  ")
 
 print("-> Testando __str__()")
-print(aluno)      
+print(" === Aluno ===")
+print(aluno)
+     
+print("\n === Instrutora ===")
 print(instrutor)   
 
 print("\n-> Testando exibir_dados()")

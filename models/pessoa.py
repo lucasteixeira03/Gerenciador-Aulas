@@ -7,23 +7,23 @@ class Pessoa(ABC):
 
     @property
     def nome(self):
-        return self._nome
+        return self.__nome
     
     @nome.setter
     def nome(self, nome):
-        self._nome = nome.strip()
+        self.__nome = nome.strip()
 
     @property
     def email(self):
-        return self._email  
+        return self.__email  
 
     @email.setter
     def email(self, email):
-        self._email = email.strip()
+        self.__email = email.strip()
 
     @abstractmethod
     def exibir_dados(self):
         pass
 
     def __str__(self):
-        return f"Nome: {self._nome}, Email: {self._email}"
+        return f"Nome: {self.__nome}\nEmail: {self.__email}\n"

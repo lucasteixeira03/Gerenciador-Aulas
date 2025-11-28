@@ -7,17 +7,17 @@ class Aluno(Pessoa):
 
     @property
     def matricula(self):
-        return self._matricula
+        return self.__matricula
 
     @matricula.setter
     def matricula(self, matricula):
-        self._matricula = matricula.strip()
+        self.__matricula = matricula.strip()
 
     def __str__(self):
-        return f"{super().__str__()}, Matrícula: {self._matricula}"
+        return f"{super().__str__()}Matrícula: {self.__matricula}"
 
     def exibir_dados(self):
-        return f"Aluno: {self.nome}, Email: {self.email}, Matrícula: {self.matricula}"
+        return f"Aluno: {self.nome}\nEmail: {self.email}\nMatrícula: {self.matricula}\n"
 
 
     """ Código comentado para evitar bugs no momento
