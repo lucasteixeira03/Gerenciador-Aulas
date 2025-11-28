@@ -18,9 +18,3 @@ class Aluno(Pessoa):
 
     def exibir_dados(self):
         return f"Aluno: {self.nome}\nEmail: {self.email}\nMatrícula: {self.matricula}\n"
-
-
-    """ Código comentado para evitar bugs no momento
-    
-    def inscrever(self, sessão: "SessãoAula"):
-        return sessão.inscrever(self)""" 

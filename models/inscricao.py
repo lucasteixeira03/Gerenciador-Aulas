@@ -4,7 +4,7 @@ from .enums import StatusInscricao
 class Inscricao:
     def __init__(self,  aluno, data_hora_inscricao = None, status=StatusInscricao.INSCRITO):
         self.aluno = aluno
-        self .status = status
+        self.status = status
 
         if status == StatusInscricao.INSCRITO:
             if data_hora_inscricao:
@@ -84,4 +84,4 @@ class Inscricao:
     
     def exibir_dados(self):
         data = f"{self.data_hora_inscricao.strftime('%d-%m-%Y')}" if self.data_hora_inscricao else "Sem data definida"
-        return f"{self.aluno.exibir_dados()}Status: {self.status.value}\nData da Inscrição: {data}"
+        return f"{self.aluno.exibir_dados()}Status: {self.status.value}\nData da Inscrição: {data}\n"
