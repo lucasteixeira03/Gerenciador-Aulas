@@ -20,9 +20,9 @@ print(instrutor.exibir_dados())
 print("\n" + "-" * 40 + "\n")
 
 # Criando uma aula
-aula = Aula("Yoga", "Aula focada em alongamento e respiração", instrutor)
+aula = Aula("Yoga", "Aula focada em alongamento e respiração", instrutor, 60)
 print(aula)
-print("\n" + "-" * 40 + "\n")
+print("-" * 40 + "\n")
 
 # Criando uma sessão de aula
 sessao = SessaoAula(aula=aula, data_hora="30-11-2025 18:30", sala="sala 1", capacidade=2)

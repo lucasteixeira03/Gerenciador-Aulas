@@ -112,10 +112,16 @@ class SessaoAula:
     def exibir_dados(self):
         data_hora = (self.data_hora.strftime("%d-%m-%Y (%H:%M)")) if self.data_hora else "Sem data definida"
         professor = self.aula.instrutor.nome if self.aula.instrutor else "Nenhum"
+        if isinstance(self.aula.duracao, int) and self.aula.duracao > 0:
+            duracao = f"{self.aula.duracao} minutos"
+        else:
+            duracao = "Indeterminado"
+            
         return (f"Sessão da Aula:\n"
                 f"Aula: {self.aula.titulo}\n"
                 f"Instrutor(a): {professor}\n"
                 f"Data e Hora: {data_hora}\n"
+                f"Duração: {duracao}\n"  
                 f"Sala: {self.sala}\n"
                 f"Capacidade: {self.capacidade}\n"
                 f"Vagas Disponíveis: {self.vagas_disponiveis()}\n"

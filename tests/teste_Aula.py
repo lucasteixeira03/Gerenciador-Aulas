@@ -11,12 +11,12 @@ from models.aula import Aula
 print("=== TESTE DE AULA E INSTRUTOR ===\n")
 
 instrutor = Instrutor("Vanessa Machado", "vanessa.pf@ifsul.com", "CREF12345")
-aula1 = Aula("Personal Solo", "Aula de treinamento personalizado", instrutor)
+aula1 = Aula("Personal Solo", "Aula de treinamento personalizado", instrutor, 60)
 
 print("-> Aula  1 (com instrutor):")
 print(aula1.exibir_dados())
 
-aula2 = Aula ("Funcional em Grupo", None, None)
+aula2 = Aula ("Funcional em Grupo", None, None, 45)
 
 print("\n-> Aula 2 (sem descrição e sem instrutor):")
 print(aula2.exibir_dados())

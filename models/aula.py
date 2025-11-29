@@ -1,10 +1,11 @@
 from .instrutor import Instrutor
 
 class Aula:
-    def __init__(self, titulo, descricao=None, instrutor: Instrutor = None):
+    def __init__(self, titulo, descricao=None, instrutor: Instrutor = None, duracao = 0):
         self.titulo = titulo
         self.descricao = descricao
         self.instrutor = instrutor
+        self.duracao = duracao
 
     @property
     def titulo(self):
@@ -33,12 +34,35 @@ class Aula:
         else:
             self.__instrutor = instrutor
 
+    @property
+    def duracao(self):
+        return self.__duracao
+    
+    @duracao.setter
+    def duracao(self, duracao):
+        try:
+            duracao = int(duracao)
+            if duracao > 0:
+                self.__duracao = duracao
+            else:
+                self.__duracao = "Indeterminado"
+        except ValueError:
+            self.__duracao = "Indeterminado"
+            
     def __str__(self):
         descricao = f"Descrição: {self.descricao}\n" if self.descricao else ""
-        instrutor_nome = self.__instrutor.nome if self.__instrutor else "Nenhum"
-        return f"Aula: {self.__titulo}\n{descricao}Instrutor(a): {instrutor_nome}"
+        instrutor_nome = self.instrutor.nome if self.instrutor else "Nenhum"
+        if isinstance(self.duracao, int) and self.duracao > 0:
+            duracao = f"Duração: {self.duracao} minutos\n"
+        else:
+                duracao = "Duração: Indeterminado\n" 
+        return f"Aula: {self.titulo}\n{descricao}Instrutor(a): {instrutor_nome}\n{duracao}\n"
 
     def exibir_dados(self):
         descricao = f"Descrição: {self.descricao}\n" if self.descricao else ""
-        instrutor_info = self.instrutor.exibir_dados() if self.instrutor else "Instrutor(a): Nenhum"
-        return f"Aula: {self.titulo}\n{descricao}{instrutor_info}"
+        instrutor_nome = self.instrutor.nome if self.instrutor else "Nenhum"
+        if isinstance(self.duracao, int) and self.duracao > 0:
+            duracao = f"Duração: {self.duracao} minutos\n"
+        else:
+            duracao = "Duração: Indeterminado\n" 
+        return f"Aula: {self.titulo}\n{descricao}Instrutor(a): {instrutor_nome}\n{duracao}"
