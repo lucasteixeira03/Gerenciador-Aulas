@@ -2,15 +2,21 @@ from datetime import datetime
 from .aula import Aula
 from .inscricao import Inscricao
 from .enums import StatusInscricao
+from strategies.lotacao import EstrategiaLotacaoPadrao, EstrategiaLotacao
 
 
 class SessaoAula:
-    def __init__(self, aula, data_hora, sala, capacidade):
+    def __init__(self, aula, data_hora, sala, capacidade, estrategia_lotacao=None):
         self.aula = aula
         self.data_hora = data_hora
         self.sala = sala
         self.capacidade = capacidade
         self.inscricoes = []
+
+        if estrategia_lotacao is None:
+            self.estrategia_lotacao = EstrategiaLotacaoPadrao()
+        else:
+            self.estrategia_lotacao = estrategia_lotacao
 
     @property
     def aula(self):
@@ -74,7 +80,16 @@ class SessaoAula:
     @inscricoes.setter
     def inscricoes(self, inscricoes):
         self.__inscricoes = inscricoes
-    
+
+    @property
+    def estrategia_lotacao(self):
+        return self.__estrategia_lotacao
+
+    @estrategia_lotacao.setter
+    def estrategia_lotacao(self, estrategia):
+        if not isinstance(estrategia, EstrategiaLotacao):
+            raise TypeError("estrategia_lotacao deve ser um objeto de uma classe filha de EstrategiaLotacao.")
+        self.__estrategia_lotacao = estrategia
 
     def vagas_disponiveis(self):
         inscritos = 0
@@ -91,12 +106,8 @@ class SessaoAula:
         return len([insc for insc in self.__inscricoes if insc.status == StatusInscricao.EM_ESPERA])
     
     def inscrever(self, aluno):
-
-        if self.vagas_disponiveis() > 0:
-            inscricao = Inscricao(aluno, status=StatusInscricao.INSCRITO)
-        else:
-            inscricao = Inscricao(aluno, status=StatusInscricao.EM_ESPERA)
-
+        status = self.estrategia_lotacao.definir_status_inscricao(self)
+        inscricao = Inscricao(aluno, status=status)
         self.__inscricoes.append(inscricao)
         return inscricao
 

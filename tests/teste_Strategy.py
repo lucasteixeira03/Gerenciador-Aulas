@@ -11,8 +11,11 @@ from models.aula import Aula
 from models.aluno import Aluno
 from models.sessao_aula import SessaoAula
 from models.enums import StatusInscricao
+from strategies.lotacao import EstrategiaLotacaoSemEspera
 
-print ("=== TESTE DE SESSÃO DE AULA ===\n")
+##########################################
+# TESTE COM ESTRATÉGIA SEM FILA DE ESPERA#
+##########################################
 
 # Criar instrutor
 instrutor = Instrutor("Vanessa Machado", "vanessa.pf@ifsul.com", "CREF12345")
@@ -22,11 +25,6 @@ print(instrutor.exibir_dados() + "\n")
 aula = Aula("Yoga", "Aula focada em alongamento e respiração", instrutor, 60)
 print(aula.exibir_dados())
 
-# Criando uma sessão de aula
-sessao = SessaoAula(aula=aula, data_hora="30-11-2025 18:30", sala="sala 1", capacidade=2)
-print(sessao.exibir_dados())
-print("=" * 40 + "\n")
-
 # Criando alguns alunos
 aluno1 = Aluno("  Lucas Teixeira  ", "lucas.teixeira@gmail.com", "0102025")
 aluno2 = Aluno("  Gabriel Tanabe  ", "gabriel.tanabe@gmail.com", "0012025")
@@ -35,34 +33,46 @@ aluno4 = Aluno("  Dennis Oliveira  ", "dennis.oliveira@gmail.com", "0122023")
 
 alunos = [aluno1, aluno2, aluno3, aluno4]
 
-# Inscrevendo alunos na sessão
-print("-> Realizando inscrições na sessão...")
-inscricoes = []
+print("=== TESTE DE SESSÃO DE AULA (ESTRATÉGIA SEM ESPERA) ===\n")
+
+sessao_sem_espera = SessaoAula(
+    aula=aula,
+    data_hora="01-12-2025 19:00",
+    sala="sala 2",
+    capacidade=2,
+    estrategia_lotacao=EstrategiaLotacaoSemEspera()
+)
+
+print(sessao_sem_espera.exibir_dados())
+print("-" * 40 + "\n")
+
+print("-> Realizando inscrições na sessão (estratégia SEM ESPERA)")
+inscricoes_sem_espera = []
 for a in alunos:
-    insc = sessao.inscrever(a)
-    inscricoes.append(insc)
+    insc = sessao_sem_espera.inscrever(a)
+    inscricoes_sem_espera.append(insc)
     print(f"Inscrição criada para {a.nome}:")
     print(insc.exibir_dados())
 
 print("=" * 40 + "\n")
 print("RESUMO DA SESSÃO APÓS INSCRIÇÕES:")
-print(sessao.exibir_dados())
+print(sessao_sem_espera.exibir_dados())
 
-# Listando inscritos e em espera
 print("Alunos INSCRITOS:")
-for a in sessao.listar_inscritos():
-    print(f"- {a.nome}")
+for insc in inscricoes_sem_espera:
+    if insc.status == StatusInscricao.INSCRITO:
+        print(f"- {insc.aluno.nome}")
 print()
 
-print("Alunos EM ESPERA:")
-for a in sessao.listar_em_espera():
-    print(f"- {a.nome}")
+print("Alunos NÃO INSCRITOS:")
+for insc in inscricoes_sem_espera:
+    if insc.status == StatusInscricao.NAO_INSCRITO:
+        print(f"- {insc.aluno.nome}")
 print()
 
-print(f"Vagas disponíveis na sessão: {sessao.vagas_disponiveis()}")
+print(f"Vagas disponíveis na sessão: {sessao_sem_espera.vagas_disponiveis()}")
 print("\n" + "=" * 40 + "\n")
 
-# Só para conferir: mostrar status e data de cada inscrição
-print("DETALHES DE CADA INSCRIÇÃO:")
-for insc in inscricoes:
+print("DETALHES DAS INSCRIÇÕES:")
+for insc in inscricoes_sem_espera:
     print(insc.exibir_dados())
